@@ -42,19 +42,50 @@ def makeSurfaces(origin, num):
     s += '{} PX  {}\n'.format(60 + num, 180)
     return s
 
+def addAbs(cell, num):
+    for i, value in enumerate(cell):
+        if value > 0:
+            cell[i] += num
+        if value < 0:
+            cell[i] -= num
+    return cell
 
 def makeNodeCells(num):
     #write spacer cells
     s  = 'c   spacer {}\n'.format(num)
-    cell = np.array([-10, 11, -30, 40, 41, 42, 43, 44, 45, 46, 47, 48]) + num
+    cell = np.array([-10, 11, -30, 40, 41, 42, 43, 44, 45, 46, 47, 48])
+    cell = addAbs(cell, num)
     s   += '{} {} {}   {} {} {}     {} {} {} {} {} {} {} {}\n'.format(10 + num, *mat[0], *cell)
-    cell = np.array([-12, 13, -30, 40, 41, 42, 43, 44, 45, 46, 47, 48]) + num
+    cell = np.array([-12, 13, -30, 40, 41, 42, 43, 44, 45, 46, 47, 48])
+    cell = addAbs(cell, num)
     s   += '{} {} {}   {} {} {}     {} {} {} {} {} {} {} {}\n'.format(11 + num, *mat[0], *cell)
-    cell = np.array([-11, 12, -30, 31, 50, 40, 41, 42, 43, 44, 45, 46, 47, 48]) + num
+    cell = np.array([-11, 12, -30, 31, 50, 40, 41, 42, 43, 44, 45, 46, 47, 48])
+    cell = addAbs(cell, num)
     s   += '{} {} {}   {} {} {} {} {}     {} {} {} {} {} {} {} {}\n'.format(12 + num, *mat[0], *cell)
     
     #write electrodeposition cells
-    cell = np.array([-31, -11, ])
+    cell = np.array([-31, -11, 22])
+    cell = addAbs(cell, num)
+    s   += '{} {} {}   {}  {}  {}\n'.format(21 + num, *mat[0], *cell)
+    cell = np.array([-31, -22, 21])
+    cell = addAbs(cell, num)
+    s   += '{} {} {}   {}  {}  {}\n'.format(21 + num, *mat[0], *cell)
+    cell = np.array([-31, -21, 20])
+    cell = addAbs(cell, num)
+    s   += '{} {} {}   {}  {}  {}\n'.format(21 + num, *mat[0], *cell)
+    cell = np.array([ -31, -11, 25])
+    cell = addAbs(cell, num)
+    s   += '{} {} {}   {}  {}  {}\n'.format(21 + num, *mat[0], *cell)
+    cell = np.array([-31, -25, 24])
+    cell = addAbs(cell, num)
+    s   += '{} {} {}   {}  {}  {}\n'.format(21 + num, *mat[0], *cell)
+    cell = np.array([-31, -24, 23])
+    cell = addAbs(cell, num)
+    s   += '{} {} {}   {}  {}  {}\n'.format(21 + num, *mat[0], *cell)
+    
+    #write silica spacer cells
+    cell = np.array([-33, 31, 00, 00, 41, 42, 43, 44, 45, 46, 47, 48])
+    cell = addAbs(cell, num)
     s   += '{} {} {}   {}  {}  {}\n'.format(21 + num, *mat[0], *cell)
     return s
 
