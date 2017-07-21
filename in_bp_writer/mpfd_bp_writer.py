@@ -36,10 +36,10 @@ def makeSurfaces(origin, num):
     s += '{} C/X  {:8.6f} {:8.6f} {:8.6f}\n'.format(47 + num, origin[1] + 0.106066, origin[2] - 0.106066, 0.02032)
     s += 'c \n'
     #write RPP for window in spacer
-    s += '{} RPP {} {}   {} {}   {} {}\n'.format(50 + num, -0.2351 + origin[0], 0.2351 + origin[0], -0.05 + origin[1], 0.05 + origin[1], -0.05 + origin[2], 0.05 + origin[2])
+    s += '{} RPP {} {}   {} {}   {} {}\n'.format(50 + num, -0.05 + origin[0], 0.05 + origin[0], -0.05 + origin[1], 0.05 + origin[1], -0.2351 + origin[2], 0.2351 + origin[2])
     s += 'c \n'
     #write endplanes
-    s += '{} PX  {}\n'.format(560 + num, 180)
+    s += '{} PX  {}\n'.format(560 + num, 175.25)
     s += 'c \n'
     return s
 
@@ -54,44 +54,44 @@ def addAbs(cell, num):
 def makeNodeCells(num):
     #write spacer cells
     s  = 'c   spacer {}\n'.format(num)
-    cell = np.array([-10, 11, -30, 40, 41, 42, 43, 44, 45, 46, 47, 48])
+    cell = np.array([-10, 11, -30, 40, 41, 42, 43, 44, 45, 46, 47])
     cell = addAbs(cell, num)
-    s   += '{} {} {} {} {} {}  {} {} {} {} {} {} {} {}\n'.format(10 + num, *mat[0], *cell)
-    cell = np.array([-12, 13, -30, 40, 41, 42, 43, 44, 45, 46, 47, 48])
+    s   += '{} {} {} {} {} {}  {} {} {} {} {} {} {} {}\n'.format(10 + num, *mat[8], *cell)
+    cell = np.array([-12, 13, -30, 40, 41, 42, 43, 44, 45, 46, 47])
     cell = addAbs(cell, num)
-    s   += '{} {} {} {} {} {}  {} {} {} {} {} {} {} {}\n'.format(11 + num, *mat[0], *cell)
-    cell = np.array([-11, 12, -30, 31, 50, 40, 41, 42, 43, 44, 45, 46, 47, 48])
+    s   += '{} {} {} {} {} {}  {} {} {} {} {} {} {} {}\n'.format(11 + num, *mat[8], *cell)
+    cell = np.array([-11, 12, -30, 31, 50, 40, 41, 42, 43, 44, 45, 46, 47])
     cell = addAbs(cell, num)
-    s   += '{} {} {} {} {} {} {} {}  {} {} {} {} {} {} {} {}\n'.format(12 + num, *mat[0], *cell)
+    s   += '{} {} {} {} {} {} {} {} \n              {} {} {} {} {} {} {} {}\n'.format(12 + num, *mat[8], *cell)
     
     #write electrodeposition cells
     cell = np.array([-31, -11, 22])
     cell = addAbs(cell, num)
-    s   += '{} {} {}   {}  {}  {}\n'.format(20 + num, *mat[0], *cell)
+    s   += '{} {} {}   {}  {}  {}\n'.format(20 + num, *mat[4], *cell)
     cell = np.array([-31, -22, 21])
     cell = addAbs(cell, num)
-    s   += '{} {} {}   {}  {}  {}\n'.format(21 + num, *mat[0], *cell)
+    s   += '{} {} {}   {}  {}  {}\n'.format(21 + num, *mat[5], *cell)
     cell = np.array([-31, -21, 20])
     cell = addAbs(cell, num)
-    s   += '{} {} {}   {}  {}  {}\n'.format(22 + num, *mat[0], *cell)
-    cell = np.array([ -31, -11, 25])
+    s   += '{} {} {}   {}  {}  {}\n'.format(22 + num, *mat[3], *cell)
+    cell = np.array([ -31, 12, -25])
     cell = addAbs(cell, num)
-    s   += '{} {} {}   {}  {}  {}\n'.format(23 + num, *mat[0], *cell)
-    cell = np.array([-31, -25, 24])
+    s   += '{} {} {}   {}  {}  {}\n'.format(23 + num, *mat[4], *cell)
+    cell = np.array([-31, -24,  25])
     cell = addAbs(cell, num)
-    s   += '{} {} {}   {}  {}  {}\n'.format(24 + num, *mat[0], *cell)
-    cell = np.array([-31, -24, 23])
+    s   += '{} {} {}   {}  {}  {}\n'.format(24 + num, *mat[5], *cell)
+    cell = np.array([-31, -23, 24])
     cell = addAbs(cell, num)
-    s   += '{} {} {}   {}  {}  {}\n'.format(25 + num, *mat[0], *cell)
+    s   += '{} {} {}   {}  {}  {}\n'.format(25 + num, *mat[3], *cell)
     
     #write argon within nodes
-    cell = np.array([-50, 41, 45, -31, 23, -20])
+    cell = np.array([-50, 40, 41, 42, 43, 44, 45, 46, 47, -31, 23, -20])
     cell = addAbs(cell, num)
-    s   += '{} {} {}    ({} {} {}):({} {} {}):\n'.format(26 + num, *mat[0], *cell)
+    s   += '{} {} {}    ({} {} {} {} {} {} {} {} {}):\n          ({} {} {}):'.format(26 + num, *mat[6], *cell)
     #argon in outer wand around node
     cell = np.array([-33, 30, -10, 13])
     cell = addAbs(cell, num)
-    s   += '                ({} {} {} {})\n'.format(*cell)
+    s   += '({} {} {} {})\n'.format(*cell)
     
     return s
 
@@ -100,37 +100,41 @@ def makeWandCells():
     #write wire cells
     s = ''
     for i in range(8):
-        s   += '{} {} {}  {} {} {}\n'.format(5500 + i, *mat[0], -39, 3060, -2540 - i)
+        s   += '{} {} {}  {} {} {}\n'.format(5500 + i, *mat[7], -39, 3060, -2540 - i)
     
     #write steel casing cell
-    s   += '{} {} {}  {} {} {}  $steel casing\n'.format(5550, *mat[0], -39, 3060, 2532, -2533)
+    s   += '{} {} {}  {} {} {} {} $steel casing\n'.format(5550, *mat[2], -39, 3060, -2532, 2533)
 
     #write silica spacer cells
-    s   += '{} {} {}   {}  {}  {}  {}\n'.format(5560, *mat[0], 3060, -2513, 2531, -2533)
-    s   += '{} {} {}   {}  {}  {}  {}\n'.format(5561, *mat[0], 2510, -3513, 2531, -2533)
-    s   += '{} {} {}   {}  {}  {}  {}\n'.format(5562, *mat[0], 3510, -4513, 2531, -2533)
-    s   += '{} {} {}   {}  {}  {}  {}\n'.format(5563, *mat[0], 4510, -5513, 2531, -2533)
-    s   += '{} {} {}   {}  {}  {}  {}\n'.format(5564, *mat[0], 5510, -39, 2531, -2533)
+    s   += '{} {} {}   {}  {}  {}  {} \n           5540 5541 5542 5543 5544 5545 5546 5547\n'.format(5560, *mat[9], 3060, -2513, 2531, -2533)
+    s   += '{} {} {}   {}  {}  {}  {} \n           5540 5541 5542 5543 5544 5545 5546 5547\n'.format(5561, *mat[9], 2510, -3513, 2531, -2533)
+    s   += '{} {} {}   {}  {}  {}  {} \n           5540 5541 5542 5543 5544 5545 5546 5547\n'.format(5562, *mat[9], 3510, -4513, 2531, -2533)
+    s   += '{} {} {}   {}  {}  {}  {} \n           5540 5541 5542 5543 5544 5545 5546 5547\n'.format(5563, *mat[9], 4510, -5513, 2531, -2533)
+    s   += '{} {} {}   {}  {}  {}  {} \n           5540 5541 5542 5543 5544 5545 5546 5547\n'.format(5564, *mat[9], 5510, -39, 2531, -2533)
     
     #write argon in spacer cells
-    s   += '{} {} {}   {}  {}  {} \n'.format(5570, *mat[0], 3060, -2513, -2531)
-    s   += '{} {} {}   {}  {}  {} \n'.format(5571, *mat[0], 2510, -3513, -2531)
-    s   += '{} {} {}   {}  {}  {} \n'.format(5572, *mat[0], 3510, -4513, -2531)
-    s   += '{} {} {}   {}  {}  {} \n'.format(5573, *mat[0], 4510, -5513, -2531)
-    s   += '{} {} {}   {}  {}  {} \n'.format(5574, *mat[0], 5510, -39, -2531)
+    s   += '{} {} {}   {}  {}  {} \n'.format(5570, *mat[6], 3060, -2513, -2531)
+    s   += '{} {} {}   {}  {}  {} \n'.format(5571, *mat[6], 2510, -3513, -2531)
+    s   += '{} {} {}   {}  {}  {} \n'.format(5572, *mat[6], 3510, -4513, -2531)
+    s   += '{} {} {}   {}  {}  {} \n'.format(5573, *mat[6], 4510, -5513, -2531)
+    s   += '{} {} {}   {}  {}  {} \n'.format(5574, *mat[6], 5510, -39, -2531)
     return s
 
 
 
-mat = [[7, -3.88], #alumina
-       [7, -3.88], #alumina
-       [20, -3.88], #alumina
-       [20, -3.88], #alumina
-       [20, -3.88], #alumina
-       [20, -3.88], #alumina
+mat = [[0, 0],
+       [41, -0.00129300], #air
+       [42, -8.000], #316 stainless stell
+       [43, -19.100], #natural uranium
+       [44, -4.500], #titanium
+       [45, -21.450], #platinum
+       [46, -0.01731596], #argon gas
+       [47, -8.61000], #30 AWG alumel
+       [48, -3.8800], #alumina
+       [49, -2.200], #silica
        ]
 
-origins = [(200.0, 0.0, -8.3), (210.0, 0.0, -8.3), (220.0, 0.0, -8.3), (230.0, 0.0, -8.3)]
+origins = [(200.0, 0.0, -8.3 - 0.87), (210.0, 0.0, -8.3 - 0.87), (220.0, 0.0, -8.3 - 0.87), (230.0, 0.0, -8.3 - 0.87)]
 
 triga = open('triga1.txt', 'r').read()
 
