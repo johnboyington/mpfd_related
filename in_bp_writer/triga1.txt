@@ -1,0 +1,28 @@
+c KSU TRIGA Mark II (plugs are all air)
+c
+c Core with no 12% elements
+c
+c CELLS:
+    1     0         1 :-20 :39  $ OUTSIDE
+    2     6      -1 (((-1 2 -38 ):(-2 7 -38 44 ): $ POOL ELEMENTS
+            (-17 18 -38 30 ):(-18 20 -38 ):(-7 17 -38 37 )):
+            (-15 18 -38 43 ))#7 #14
+    3     6      -1 -34 33 -7 11  $ RSR SPACE/VOLUME
+    4     7  -2.699 -35 32 -9 12 #3  $ RSR WALLS
+    5     2    -1.6 -36 31 -9 16 
+            #3 #4 #7 #14             $ REFLECTOR GRAPHITE
+    6     7  -2.699 -37 30 -7 17 #3 #4 #5 #7 #14  $ CANNISTER/WALLS
+    7     7  -2.699 31 -40 90 -114 26  $ NEBP AL CASE
+    9     0         (-30 -7 15 ):(-44 -2 7 ) fill=7 $ CORE SPACE
+   10     7  -2.699 -15 18 -43 203  $ Lower grid plate
+   11     0         -15 18 -203  fill=4 $ CT penetration, lower grid plate
+   13    15  -2.4 (114 -39 41 26 -1 20):
+                (26 38 -114 40 -39 -1 20):(38 -26 -39 -1 20) $concrete out   
+   14     3  -0.000124 31 -114 26 -90          $ PLUG 0 
+   20     7  -2.699   114 -41 91 -39 26  $ NEBP AL CASE outer
+   21     5  -1.0000  114 -91 46 -39 26  $ NEBP AL CASE outer BP collimator
+   22     3  -0.000124 (114 -3060 -46 26):
+                        (114 3060 2532 -39 -46 26)$ Air Collimator
+c ******************************************************************************
+c                          CELLS FOR MPFDS
+c ******************************************************************************
